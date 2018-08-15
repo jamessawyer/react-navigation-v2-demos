@@ -1,0 +1,3 @@
+rootProject.name = 'gofun'
+
+include ':app'

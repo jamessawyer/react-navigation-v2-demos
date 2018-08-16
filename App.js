@@ -3,11 +3,22 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  SafeAreaView
 } from 'react-native';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+export default class App extends Component {
+  render() {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <MaterialTopTabNavigator />
+      </SafeAreaView>
+    )
+  }
+}
 
 class HomeScreen extends Component {
   render() {
@@ -47,7 +58,7 @@ class FeedScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          主页
+          反馈中心
         </Text>
       </View>
     );
@@ -55,7 +66,7 @@ class FeedScreen extends Component {
 }
 
 
-export default createMaterialBottomTabNavigator({
+const MaterialTopTabNavigator = createMaterialTopTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
@@ -93,15 +104,25 @@ export default createMaterialBottomTabNavigator({
     }
   },
 }, {
-  initialRouteName: 'Settings',
+  initialRouteName: 'Home',
+  // swipeEnabled: false, // 是否允许滑动切换tabs 默认是true
+  animationEnabled: false, // 点击tab label切换tab时是否开启动画 默认为true
   // order: ['Settings', 'Home'],
-  activeTintColor: 'black',
-  inactiveTintColor: '#333',
-  // 缩放图标的效果
-  shifting: true, // 默认在大于3个路由时为true, 如果显式的设置为true了则少于3个时也会显示效果
-  barStyle: {
-    backgroundColor: 'orange',
-  }
+  tabBarPosition: 'bottom', // tab bar显示的位置，默认是 'top'
+  tabBarOptions: {
+    activeTintColor: 'orange',
+    inactiveTintColor: 'grey',
+    style: {
+      backgroundColor: '#f2f2f2',
+      borderTopWidth: 0.5,
+      borderTopColor: 'grey',
+    },
+    indicatorStyle: {
+      height: 0, // 不显示indicator
+    },
+    showIcon: true, // 是否显示图标, 默认为false
+    showLabel: false, // 是否显示label
+  },
 });
 
 const styles = StyleSheet.create({
